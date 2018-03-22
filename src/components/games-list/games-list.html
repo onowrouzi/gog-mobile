@@ -1,0 +1,20 @@
+<div>
+  <ion-searchbar></ion-searchbar>
+  <ion-list>
+    <ion-item *ngFor="let game of games">
+      <ion-thumbnail item-start>
+        <img [src]="'https:' + game.image + '.jpg'">
+      </ion-thumbnail>
+      <h2>{{ game.title }}</h2>
+      <p>{{ game.price.symbol + game.price.amount }}
+        <span *ngIf="game.isDiscounted" class="bold armroom discount">-{{ game.price.discount }}%</span>
+      </p>
+      <p>
+        <ion-icon name="logo-windows" *ngIf="game.worksOn.Windows"></ion-icon>
+        <ion-icon name="logo-apple" *ngIf="game.worksOn.Mac"></ion-icon>
+        <ion-icon name="logo-tux" *ngIf="game.worksOn.Linux"></ion-icon>
+      </p>
+      <button ion-button clear item-end>View</button>
+    </ion-item>
+  </ion-list>
+</div>

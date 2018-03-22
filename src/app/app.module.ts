@@ -9,15 +9,18 @@ import { ListPage } from '../pages/list/list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { DiscountedPage } from '../pages/discounted/discounted';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    ListPage
+    DiscountedPage
   ],
   imports: [
     BrowserModule,
+    ComponentsModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
   ],
@@ -25,7 +28,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage
+    DiscountedPage
   ],
   providers: [
     StatusBar,

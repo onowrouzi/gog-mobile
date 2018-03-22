@@ -1,22 +1,25 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 
-import 'rxjs/add/operator/map';
-
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'page-discounted',
+  templateUrl: 'discounted.html',
 })
-export class HomePage {
+export class DiscountedPage {
   games: any[];
   constructor(public navCtrl: NavController, private _http: HttpClient) {
     _http.get('/gog/games/ajax/filtered', {
       params: {
         mediaType: 'game',
-        sort: 'popularity'
+        sort: 'popularity',
+        price: 'discounted'
       }
     }).subscribe((res:any) => this.games = res.products);
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad DiscountedPage');
   }
 
 }

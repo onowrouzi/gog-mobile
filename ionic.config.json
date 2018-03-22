@@ -4,7 +4,7 @@
   "type": "ionic-angular",
   "proxies": [
     {
-      "path": "/api",
+      "path": "/gog",
       "proxyUrl": "https://embed.gog.com"
     }
   ],
