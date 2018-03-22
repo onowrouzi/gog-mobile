@@ -1,5 +1,5 @@
-<div>
-  <ion-searchbar></ion-searchbar>
+<ion-content padding (ionScroll)="onScroll($event)">
+  <ion-searchbar class="games-search" [(ngModel)]="query.search" [showCancelButton]="true" (ionInput)="searchGames()"></ion-searchbar>
   <ion-list>
     <ion-item *ngFor="let game of games">
       <ion-thumbnail item-start>
@@ -16,5 +16,11 @@
       </p>
       <button ion-button clear item-end>View</button>
     </ion-item>
+    <button [hidden]="!showScrollToTop" ion-button class="scroll-to-top-btn" (click)="scrollToTop()" color="dark" round>
+      <ion-icon name="arrow-dropup"></ion-icon>
+    </button>
   </ion-list>
-</div>
+  <ion-infinite-scroll (ionInfinite)="getGames($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

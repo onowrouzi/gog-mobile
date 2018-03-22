@@ -3,10 +3,15 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>GoG - Best Sellers</ion-title>
+    <ion-title>
+      <div class="row">
+        <div class="col-9">Best Sellers</div>
+        <div class="col-3">
+          <img class="float-right" src="assets/imgs/gog_logo.png" height="30"/>
+        </div>
+      </div>
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <games-list [games]="games"></games-list>
-</ion-content>
+<games-list [query]="gamesQuery"></games-list>

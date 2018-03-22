@@ -15,6 +15,18 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
+body, ion-content {
+  background-color: #ccc;
+}
+
+ion-item {
+  background-color: #fafafa !important;
+}
+
+ion-toolbar {
+  background-color: #2b2b2b !important;
+}
+
 .bold {
   font-weight: 1000
 }
