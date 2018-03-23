@@ -5,21 +5,19 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
+import { GameDetailPage } from '../pages/game-detail/game-detail';
+import { GamesListPage } from '../pages/games-list/games-list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { DiscountedPage } from '../pages/discounted/discounted';
 import { ComponentsModule } from '../components/components.module';
-import { NewReleasesPage } from '../pages/new-releases/new-releases';
-import { GameDetailPage } from '../pages/game-detail/game-detail';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { GameQueryProvider } from '../providers/game-query/game-query';
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
-    DiscountedPage,
-    NewReleasesPage,
+    GamesListPage,
     GameDetailPage
   ],
   imports: [
@@ -32,15 +30,15 @@ import { GameDetailPage } from '../pages/game-detail/game-detail';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
-    DiscountedPage,
-    NewReleasesPage,
+    GamesListPage,
     GameDetailPage
   ],
   providers: [
+    InAppBrowser,
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    GameQueryProvider
   ]
 })
 export class AppModule {}

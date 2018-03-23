@@ -3,9 +3,12 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { HomePage } from '../pages/home/home';
-import { DiscountedPage } from '../pages/discounted/discounted';
-import { NewReleasesPage } from '../pages/new-releases/new-releases';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { GamesListPage } from '../pages/games-list/games-list';
+import { GameSortCategory } from '../models/GameSortCategory';
+import { GamePriceCategory } from '../models/GamePriceCategory';
+import { GameQueryProvider } from '../providers/game-query/game-query';
+import { GameListQuery } from '../models/GameListQuery';
 
 @Component({
   templateUrl: 'app.html'
@@ -13,18 +16,20 @@ import { NewReleasesPage } from '../pages/new-releases/new-releases';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = GamesListPage;
+  pages: Array<{title: string, component: any, query: GameListQuery, getGames?: boolean}>;
 
-  pages: Array<{title: string, component: any}>;
-
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
+              private _gamesProvider: GameQueryProvider, private _iab: InAppBrowser) {
     this.initializeApp();
+
+    this._gamesProvider.setQuery({ sort: GameSortCategory.Popularity, page: 1 });
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Best Sellers', component: HomePage },
-      { title: 'On Sale', component: DiscountedPage },
-      { title: 'New Releases', component: NewReleasesPage }
+      { title: 'Best Sellers', component: GamesListPage, query: { sort: GameSortCategory.Popularity } },
+      { title: 'On Sale', component: GamesListPage, query: { price: GamePriceCategory.Discounted } },
+      { title: 'New Releases', component: GamesListPage, query: { sort: GameSortCategory.Date } }
     ];
 
   }
@@ -39,8 +44,13 @@ export class MyApp {
   }
 
   openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
+    page.query.page = 1;
+    this._gamesProvider.setQuery(page.query);
     this.nav.setRoot(page.component);
+  }
+
+  onLogoClick() {
+    const webview = this._iab.create('https://www.gog.com', '_self', 'location=no,hardwareback=yes,toolbar=no');
+    webview.show();
   }
 }

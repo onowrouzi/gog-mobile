@@ -1,11 +1,16 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title *ngIf="game">
+    <ion-buttons left>
+      <button ion-button (click)="dismiss()" color="dark" class="btn-back">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title *ngIf="game" class="game-title">
       {{ game.title }}
     </ion-title>
-    <ion-buttons start>
-      <button ion-button (click)="dismiss()" color="dark" class="btn-back">
-        Back
+    <ion-buttons right>
+      <button ion-button (click)="goPurchase()" clear>
+          <img class="float-right" src="assets/imgs/gog_logo.png" height="30"/>
       </button>
     </ion-buttons>
   </ion-toolbar>

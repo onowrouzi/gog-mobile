@@ -2,10 +2,9 @@
   background: #fafafa;
 }
 
-.btn-back {
-  color: #e1e1e1 !important;
-  &:hover {
-    color: white !important;
+.game-title {
+  > .toolbar-title {
+    font-size: 1.5rem !important;
   }
 }
 
@@ -34,6 +33,7 @@ ngb-carousel, .carousel-inner, .carousel-item, .carousel-item > img, .carousel-i
 }
 
 .price-wrapper {
+  color: #333;
   margin-bottom: 10px;
   font-weight: bold;
 }

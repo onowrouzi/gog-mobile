@@ -1,9 +1,21 @@
+import { GameFeatures } from "./GameFeatures";
+import { GameReleaseSpan } from "./GameReleaseSpan";
+import { GameCategory } from "./GameCategory";
+import { GamePriceCategory } from "./GamePriceCategory";
+import { GameSortCategory } from "./GameSortCategory";
+
 export class GameListQuery {
-  limit: number;
-  page: number;
-  price: string;
-  release: string;
-  search: string;
-  sort: string;
-  system: string;
+  category?: GameCategory;
+  feature?: GameFeatures[];
+  limit?: number;
+  page?: number;
+  price?: GamePriceCategory;
+  release?: GameReleaseSpan[];
+  search?: string;
+  sort?: GameSortCategory;
+  system?: string;
+
+  constructor () {
+    this.page = 1;
+  }
 }

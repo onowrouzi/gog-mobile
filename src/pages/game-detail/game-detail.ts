@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { GameResult } from '../../models/GameResult';
 import { DomSanitizer } from '@angular/platform-browser';
 import { GamePrice } from '../../models/GamePrice';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 @Component({
   selector: 'page-game-detail',
@@ -18,7 +19,7 @@ export class GameDetailPage {
   fullDescription: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController,
-              private _viewCtrl: ViewController, private _http: HttpClient, private _sanitizer: DomSanitizer) {
+              private _viewCtrl: ViewController, private _http: HttpClient, private _sanitizer: DomSanitizer, private _iab: InAppBrowser) {
     this.loadScreen = loadingCtrl.create({content: 'Retrieving Game Info...'});
     this.loadScreen.present();
     this.price = this.navParams.get('price');
@@ -57,5 +58,12 @@ export class GameDetailPage {
 
   trustSrc(src) {
     return this._sanitizer.bypassSecurityTrustResourceUrl(src);
+  }
+
+  goPurchase() {
+    if (this.game && this.game.links && this.game.links.product_card) {
+      const webview = this._iab.create(this.game.links.product_card, '_self', 'location=no,hardwareback=yes,toolbar=no');
+      webview.show();
+    }
   }
 }
