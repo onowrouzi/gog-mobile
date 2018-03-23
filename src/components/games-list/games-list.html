@@ -14,7 +14,7 @@
         <ion-icon name="logo-apple" *ngIf="game.worksOn.Mac"></ion-icon>
         <ion-icon name="logo-tux" *ngIf="game.worksOn.Linux"></ion-icon>
       </p>
-      <button ion-button clear item-end>View</button>
+      <button ion-button clear item-end (click)="showGameDetail(game.id, game.price)">View</button>
     </ion-item>
     <ion-fab>
       <button [hidden]="!showScrollToTop" class="scroll-to-top-btn" (click)="scrollToTop()" color="dark" ion-fab>

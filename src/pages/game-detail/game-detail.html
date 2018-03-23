@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title *ngIf="game">
+      {{ game.title }}
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()" color="dark" class="btn-back">
+        Back
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<h5 *ngIf="!game && loaded">Oops... looks like something went wrong. Time to hit that ol' back button!</h5>
+<ion-content padding class="game-detail">
+  <div *ngIf="game">
+    <div class="row video-wrapper">
+      <ngb-carousel *ngIf="(game.videos && game.videos.length > 0) || (game.screenshots && game.screenshots.length > 0)">
+        <ng-template ngbSlide *ngFor="let vid of game.videos">
+          <iframe [src]="vid.video_url" class="game-video"></iframe>
+        </ng-template>
+        <ng-template ngbSlide *ngFor="let screenshot of game.screenshots">
+          <img [src]="screenshot.formatter_template_url"/>
+        </ng-template>
+      </ngb-carousel>
+    </div>
+    <div class="row price-wrapper">
+      <div class="col-6">
+        <div *ngIf="game.release_date">
+          Release Date: <br/>
+          {{ game.release_date | date }}
+        </div>
+      </div>
+      <div class="col-6 text-right">
+        Price   {{ price.symbol + price.amount }} <br/>
+        <div *ngIf="price.isDiscounted">
+          Discount <span class="discount"> -{{price.discount}}%</span>
+        </div>
+      </div>
+    </div>
+    <h5 class="text-left">Description</h5>
+    <p [innerHTML]="fullDescription ? game.description.full : game.description.lead"></p>
+    <p class="text-center" (click)="fullDescription = !fullDescription">
+      <a class="read-more">{{ fullDescription ? 'Read Less' : 'Read More' }}</a>
+    </p>
+    <game-review-list [gameId]="game.id"></game-review-list>
+  </div>
+</ion-content>

@@ -1,0 +1,44 @@
+.game-detail {
+  background: #fafafa;
+}
+
+.btn-back {
+  color: #e1e1e1 !important;
+  &:hover {
+    color: white !important;
+  }
+}
+
+.video-wrapper {
+  margin-bottom: 10px;
+}
+
+ngb-carousel, .carousel-inner, .carousel-item, .carousel-item > img, .carousel-item > iframe {
+  max-width: 100%;
+  background: color($colors, dark);
+  width: 100%;
+  margin: auto;
+}
+
+.carousel-item > img, .carousel-item > iframe {
+  display: block;
+  height: 45vmin;
+}
+
+.carousel-item > img {
+  width: auto;
+}
+
+.carousel-indicators {
+  display: none;
+}
+
+.price-wrapper {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.read-more {
+  font-weight: 700;
+  text-decoration: underline !important;
+}

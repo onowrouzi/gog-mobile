@@ -1,0 +1,23 @@
+<h5 class="text-left">Reviews</h5>
+<p class="text-center" *ngIf="!reviews || reviews.length <= 0">
+  No reviews found for this game.
+</p>
+<ion-list>
+  <ion-item *ngFor="let review of reviews">
+    <ion-avatar item-start>
+      <img [src]="review.author.avatarPath">
+    </ion-avatar>
+    <h2>{{ review.author.name }}</h2>
+    <div class="row">
+      <div class="col-12">
+        <p [innerHTML]="fullReview ? review.description : review.teaser" class="review-description"></p>
+        <p class="text-center" (click)="fullReview = !fullReview" *ngIf="review.description != review.teaser">
+          <a class="read-more">{{ fullReview ? 'Read Less' : 'Read More' }}</a>
+        </p>
+      </div>
+    </div>
+  </ion-item>
+</ion-list>
+<ion-infinite-scroll (ionInfinite)="getReviews($event)">
+  <ion-infinite-scroll-content></ion-infinite-scroll-content>
+</ion-infinite-scroll>
