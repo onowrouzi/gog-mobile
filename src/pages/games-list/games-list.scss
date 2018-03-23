@@ -1,0 +1,28 @@
+.games-search {
+  margin-top: 40px;
+  padding: 8px 0 !important;
+}
+
+.discount {
+  background: #666;
+  color: white;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.scroll-to-top-btn {
+  position: fixed;
+  bottom: 10px;
+  right: 30px;
+}
+
+.game-item {
+  h2 {
+    font-size: 1.2rem;
+    margin-top: 0;
+  }
+  p {
+    font-size: 1.1rem;
+    margin-top: 5px;
+  }
+}
