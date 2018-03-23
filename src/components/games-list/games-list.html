@@ -1,9 +1,9 @@
 <ion-content padding (ionScroll)="onScroll($event)">
   <ion-searchbar class="games-search" [(ngModel)]="query.search" [showCancelButton]="true" (ionInput)="searchGames()"></ion-searchbar>
   <ion-list>
-    <ion-item *ngFor="let game of games">
+    <ion-item *ngFor="let game of games" class="game-item">
       <ion-thumbnail item-start>
-        <img [src]="'https:' + game.image + '.jpg'">
+        <img [src]="'https:' + game.image + '_100.jpg'">
       </ion-thumbnail>
       <h2>{{ game.title }}</h2>
       <p>{{ game.price.symbol + game.price.amount }}
@@ -16,9 +16,11 @@
       </p>
       <button ion-button clear item-end>View</button>
     </ion-item>
-    <button [hidden]="!showScrollToTop" ion-button class="scroll-to-top-btn" (click)="scrollToTop()" color="dark" round>
-      <ion-icon name="arrow-dropup"></ion-icon>
-    </button>
+    <ion-fab>
+      <button [hidden]="!showScrollToTop" class="scroll-to-top-btn" (click)="scrollToTop()" color="dark" ion-fab>
+        <ion-icon name="arrow-dropup"></ion-icon>
+      </button>
+    </ion-fab>
   </ion-list>
   <ion-infinite-scroll (ionInfinite)="getGames($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>

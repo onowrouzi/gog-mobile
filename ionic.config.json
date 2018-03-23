@@ -4,8 +4,12 @@
   "type": "ionic-angular",
   "proxies": [
     {
-      "path": "/gog",
+      "path": "/gog/embed",
       "proxyUrl": "https://embed.gog.com"
+    },
+    {
+      "path": "/gog/api",
+      "proxyUrl": "https://api.gog.com"
     }
   ],
   "integrations": {

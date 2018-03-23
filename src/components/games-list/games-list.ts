@@ -25,8 +25,7 @@ export class GamesListComponent implements OnInit {
   }
 
   getGames(evt?) {
-    console.log(this.query);
-    this._http.get('/gog/games/ajax/filtered', {
+    this._http.get('/gog/embed/games/ajax/filtered', {
       params: omitBy(this.query, isNil)
     }).subscribe((res: GameListResult) => {
       this.games = (this.games || []).concat(res.products);
