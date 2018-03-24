@@ -3,13 +3,14 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { GamesListPage } from '../pages/games-list/games-list';
 import { GameSortCategory } from '../models/GameSortCategory';
 import { GamePriceCategory } from '../models/GamePriceCategory';
 import { GameQueryProvider } from '../providers/game-query/game-query';
 import { GameListQuery } from '../models/GameListQuery';
 import { CustomFilterPage } from '../pages/custom-filter/custom-filter';
+import { GameFeatures } from '../models/GameFeatures';
+import { WebViewProvider } from '../providers/web-view/web-view';
 
 @Component({
   templateUrl: 'app.html'
@@ -18,20 +19,23 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = GamesListPage;
-  pages: Array<{title: string, component: any, query?: GameListQuery}>;
+  pages: Array<{title: string, component: any, link: string, query?: GameListQuery}>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
-              private _gamesProvider: GameQueryProvider, private _iab: InAppBrowser) {
+              private _gamesProvider: GameQueryProvider, private _webviewProvider: WebViewProvider) {
     this.initializeApp();
 
-    this._gamesProvider.setQuery({ sort: GameSortCategory.Popularity, page: 1 });
+    const home = { title: 'Popular', component: GamesListPage, query: { sort: GameSortCategory.Popularity }, link: 'https://www.gog.com/games?sort=' + GameSortCategory.Popularity };
+    this._gamesProvider.setQuery({ sort: GameSortCategory.Popularity, page: 1 }, {title: home.title, link: home.link});
 
-    // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Best Sellers', component: GamesListPage, query: { sort: GameSortCategory.Popularity } },
-      { title: 'On Sale', component: GamesListPage, query: { price: GamePriceCategory.Discounted } },
-      { title: 'New Releases', component: GamesListPage, query: { sort: GameSortCategory.Date } },
-      { title: 'Custom Filter', component: CustomFilterPage }
+      home,
+      { title: 'Best Sellers', component: GamesListPage, query: { sort: GameSortCategory.BestSelling }, link: 'https://www.gog.com/games?sort=' + GameSortCategory.BestSelling },
+      { title: 'Free', component: GamesListPage, query: { price: GamePriceCategory.Free }, link: 'https://www.gog.com/games?price=' + GamePriceCategory.Free },
+      { title: 'In Development', component: GamesListPage, query: { feature: GameFeatures.InDev }, link: 'https://www.gog.com/games?feature=' + GameFeatures.InDev },
+      { title: 'New Releases', component: GamesListPage, query: { sort: GameSortCategory.Date }, link: 'https://www.gog.com/games?sort=' + GameSortCategory.Date },
+      { title: 'On Sale', component: GamesListPage, query: { price: GamePriceCategory.Discounted }, link: 'https://www.gog.com/games?price=' + GamePriceCategory.Discounted },
+      { title: 'Custom Filter', component: CustomFilterPage, link: 'https://www.gog.com/games' }
     ];
 
   }
@@ -48,13 +52,12 @@ export class MyApp {
   openPage(page) {
     if (page.query) {
       page.query.page = 1;
-      this._gamesProvider.setQuery(page.query);
+      this._gamesProvider.setQuery(page.query, { title: page.title, link: page.link });
     }
     this.nav.setRoot(page.component);
   }
 
   onLogoClick() {
-    const webview = this._iab.create('https://www.gog.com', '_self', 'location=no,hardwareback=yes,toolbar=no');
-    webview.show();
+    this._webviewProvider.show('https://www.gog.com');
   }
 }

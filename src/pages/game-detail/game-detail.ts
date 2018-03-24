@@ -1,17 +1,17 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController, LoadingController, Loading } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, NavParams, ViewController, LoadingController, Loading, Content } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
-import { GameResult } from '../../models/GameResult';
 import { DomSanitizer } from '@angular/platform-browser';
+import { GameResult } from '../../models/GameResult';
 import { GamePrice } from '../../models/GamePrice';
-import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { WebViewProvider } from '../../providers/web-view/web-view';
 
 @Component({
   selector: 'page-game-detail',
   templateUrl: 'game-detail.html',
 })
 export class GameDetailPage {
-
+  @ViewChild(Content) content: Content;
   game: GameResult;
   price: GamePrice;
   loaded: boolean;
@@ -19,7 +19,7 @@ export class GameDetailPage {
   fullDescription: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController,
-              private _viewCtrl: ViewController, private _http: HttpClient, private _sanitizer: DomSanitizer, private _iab: InAppBrowser) {
+              private _viewCtrl: ViewController, private _http: HttpClient, private _sanitizer: DomSanitizer, private _webviewProvider: WebViewProvider) {
     this.loadScreen = loadingCtrl.create({content: 'Retrieving Game Info...'});
     this.loadScreen.present();
     this.price = this.navParams.get('price');
@@ -62,8 +62,7 @@ export class GameDetailPage {
 
   goPurchase() {
     if (this.game && this.game.links && this.game.links.product_card) {
-      const webview = this._iab.create(this.game.links.product_card, '_self', 'location=no,hardwareback=yes,toolbar=no');
-      webview.show();
+      this._webviewProvider.show(this.game.links.product_card);
     }
   }
 }

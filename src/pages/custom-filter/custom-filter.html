@@ -3,25 +3,57 @@
 <ion-content padding class="filter-wrapper">
 
   <div class="row">
-    <ion-buttons>
-      <button ion-button clear (click)="apply()">Apply</button>
-    </ion-buttons>
+    <div class="col-12">
+      <button ion-button full (click)="apply()">Apply</button>
+    </div>
   </div>
 
-  <h5 class="text-left">Price Range</h5>
+  <div class="row">
+    <div class="col-12">
+      <button ion-button full (click)="clear()" color="dark">Clear</button>
+    </div>
+  </div>
 
-  <ion-list>
+  <ion-list class="game-search-filter">
+    <ion-item>
+      <ion-label>Sort</ion-label>
+      <ion-select *ngIf="query" [(ngModel)]="query.sort" placeholder="Any">
+        <ion-option *ngFor="let sort of sorts" [value]="sort.value" [selected]="query.sort == sort.value">{{ sort.text }}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Genre</ion-label>
+      <ion-select *ngIf="query" [(ngModel)]="query.category" placeholder="Any">
+        <ion-option *ngFor="let category of categories" [value]="category.value" [selected]="query.category == category.value">{{ category.text }}</ion-option>
+      </ion-select>
+    </ion-item>
+
     <ion-item>
       <ion-label>Price Range</ion-label>
-      <ion-select *ngIf="query" [(ngModel)]="query.price">
+      <ion-select *ngIf="query" [(ngModel)]="query.price" placeholder="Any">
         <ion-option *ngFor="let range of priceRanges" [value]="range.value" [selected]="query.price == range.value">{{ range.text }}</ion-option>
-        <!-- <ion-option value="'free'" [selected]="query.price == 'free'">Free</ion-option>
-        <ion-option value="'discounted'" [selected]="query.price == 'discounted'">Discounted</ion-option>
-        <ion-option value="'u5'" [selected]="query.price == 'u5'">Under $5</ion-option>
-        <ion-option value="'u10'" [selected]="query.price == 'u10'">Under $10</ion-option>
-        <ion-option value="'u15'" [selected]="query.price == 'u15'">Under $15</ion-option>
-        <ion-option value="'u25'" [selected]="query.price == 'u25'">Under $25</ion-option>
-        <ion-option value="'a25'" [selected]="query.price == 'a25'">Over $25</ion-option> -->
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Features</ion-label>
+      <ion-select [(ngModel)]="selectedFeatures" placeholder="Any" multiple="true">
+        <ion-option *ngFor="let feature of features" [value]="feature.value" [selected]="isSelected(selectedFeatures, feature.value)">{{ feature.text }}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Release Dates</ion-label>
+      <ion-select [(ngModel)]="selectedReleaseSpans" placeholder="Any" multiple="true">
+        <ion-option *ngFor="let span of releaseSpans" [value]="span.value" [selected]="isSelected(selectedReleaseSpans, span.value)">{{ span.text }}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Systems</ion-label>
+      <ion-select [(ngModel)]="selectedPlatforms" placeholder="Any" multiple="true">
+        <ion-option *ngFor="let platform of platforms" [value]="platform.value" [selected]="isSelected(selectedPlatforms, platform.value)">{{ platform.text }}</ion-option>
       </ion-select>
     </ion-item>
   </ion-list>

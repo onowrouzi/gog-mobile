@@ -4,5 +4,6 @@ export enum GameSortCategory {
   Oldest = 'release_asc',
   Popularity = 'popularity',
   Rating = 'rating',
-  Title = 'title'
+  Title = 'title',
+  BestSelling = 'bestselling'
 }

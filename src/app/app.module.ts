@@ -14,6 +14,7 @@ import { ComponentsModule } from '../components/components.module';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { GameQueryProvider } from '../providers/game-query/game-query';
 import { CustomFilterPage } from '../pages/custom-filter/custom-filter';
+import { WebViewProvider } from '../providers/web-view/web-view';
 
 @NgModule({
   declarations: [
@@ -37,11 +38,12 @@ import { CustomFilterPage } from '../pages/custom-filter/custom-filter';
     CustomFilterPage
   ],
   providers: [
+    GameQueryProvider,
     InAppBrowser,
     StatusBar,
     SplashScreen,
+    WebViewProvider,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    GameQueryProvider
   ]
 })
 export class AppModule {}

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { GameQueryProvider } from '../../providers/game-query/game-query';
 import { TitleBarSettings } from '../../models/TitleBarSettings';
+import { WebViewProvider } from '../../providers/web-view/web-view';
 
 @Component({
   selector: 'title-bar',
@@ -12,14 +12,13 @@ export class TitleBarComponent {
   @Input() title: string;
   @Input() link?: string;
 
-  constructor(private _iab: InAppBrowser, private _gamesProvider : GameQueryProvider) {
+  constructor(private _webviewProvider: WebViewProvider, private _gamesProvider : GameQueryProvider) {
     this.setOnTitleChange();
   }
 
   onLogoClick() {
     if (this.link) {
-      const webview = this._iab.create(this.link, '_self', 'location=no,hardwareback=yes,toolbar=no');
-      webview.show();
+      this._webviewProvider.show(this.link);
     }
   }
 

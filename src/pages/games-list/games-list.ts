@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Content, ModalController } from 'ionic-angular';
 
 import { GameListQuery } from '../../models/GameListQuery';
@@ -20,7 +20,7 @@ export class GamesListPage implements OnInit {
   totalPages: number;
   showScrollToTop: boolean;
 
-  constructor(private _gamesProvider: GameQueryProvider, private _zone: NgZone, private _modalCtrl: ModalController) {
+  constructor(private _gamesProvider: GameQueryProvider, private _modalCtrl: ModalController) {
     this.query = this._gamesProvider.getQuery();
     this.totalPages = 2;
     this.title = 'Best Sellers';
@@ -62,15 +62,5 @@ export class GamesListPage implements OnInit {
     this._gamesProvider.setPage(1);
     this.games = [];
     this.getGames();
-  }
-
-  onScroll(evt : Content) {
-    this._zone.run(() => {
-      this.showScrollToTop = evt.scrollTop > 100;
-    });
-  }
-
-  scrollToTop() {
-    this.content.scrollToTop();
   }
 }

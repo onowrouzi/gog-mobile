@@ -1,16 +1,14 @@
-import { GameFeatures } from "./GameFeatures";
-import { GameReleaseSpan } from "./GameReleaseSpan";
 import { GameCategory } from "./GameCategory";
 import { GamePriceCategory } from "./GamePriceCategory";
 import { GameSortCategory } from "./GameSortCategory";
 
 export class GameListQuery {
   category?: GameCategory;
-  feature?: GameFeatures[];
+  feature?: string;
   limit?: number;
   page?: number;
   price?: GamePriceCategory;
-  release?: GameReleaseSpan[];
+  release?: string;
   search?: string;
   sort?: GameSortCategory;
   system?: string;

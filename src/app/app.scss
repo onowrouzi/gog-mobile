@@ -19,8 +19,10 @@ body, ion-content {
   background-color: #ccc;
 }
 
+
+
 a, .button-clear {
-  color: #8f4fa6;
+  color: color($colors, primary);
 }
 
 ion-item {

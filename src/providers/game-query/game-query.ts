@@ -4,8 +4,6 @@ import { GameListQuery } from '../../models/GameListQuery';
 import { GameListResult } from '../../models/GameListResult';
 
 import { isNil, omitBy } from 'lodash';
-import { GameSortCategory } from '../../models/GameSortCategory';
-import { GamePriceCategory } from '../../models/GamePriceCategory';
 import { TitleBarSettings } from '../../models/TitleBarSettings';
 
 @Injectable()
@@ -24,34 +22,16 @@ export class GameQueryProvider {
     return this.query;
   }
 
-  async setQuery(query: GameListQuery) {
+  async setQuery(query: GameListQuery, tbs: TitleBarSettings) {
     this.query = query;
     const res = await this.getGames();
 
-    this.setTitle();
+    this.titleBarSettingsEmitter.emit(tbs);
     this.queryEmitter.emit(res as GameListResult);
   }
 
   setPage(page: number) {
     this.query.page = page;
-  }
-
-  setTitle() {
-    let tbs = new TitleBarSettings();
-    tbs.title = 'Games Search';
-    tbs.link = 'https://www.gog.com';
-    if (this.query.sort && this.query.sort == GameSortCategory.Popularity) {
-      tbs.title = 'Best Sellers';
-      tbs.link += '/games?sort=popularity';
-    } else if (this.query.sort && this.query.sort == GameSortCategory.Date) {
-      tbs.title = 'New Releases';
-      tbs.link += '/games?sort=date';
-    } else if (this.query.price && this.query.price == GamePriceCategory.Discounted) {
-      tbs.title = 'On Sale';
-      tbs.link += '/games?price=discounted';
-    }
-
-    this.titleBarSettingsEmitter.emit(tbs);
   }
 
   getGames() {
