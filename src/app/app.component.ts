@@ -9,6 +9,7 @@ import { GameSortCategory } from '../models/GameSortCategory';
 import { GamePriceCategory } from '../models/GamePriceCategory';
 import { GameQueryProvider } from '../providers/game-query/game-query';
 import { GameListQuery } from '../models/GameListQuery';
+import { CustomFilterPage } from '../pages/custom-filter/custom-filter';
 
 @Component({
   templateUrl: 'app.html'
@@ -17,7 +18,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = GamesListPage;
-  pages: Array<{title: string, component: any, query: GameListQuery, getGames?: boolean}>;
+  pages: Array<{title: string, component: any, query?: GameListQuery}>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
               private _gamesProvider: GameQueryProvider, private _iab: InAppBrowser) {
@@ -29,7 +30,8 @@ export class MyApp {
     this.pages = [
       { title: 'Best Sellers', component: GamesListPage, query: { sort: GameSortCategory.Popularity } },
       { title: 'On Sale', component: GamesListPage, query: { price: GamePriceCategory.Discounted } },
-      { title: 'New Releases', component: GamesListPage, query: { sort: GameSortCategory.Date } }
+      { title: 'New Releases', component: GamesListPage, query: { sort: GameSortCategory.Date } },
+      { title: 'Custom Filter', component: CustomFilterPage }
     ];
 
   }
@@ -44,8 +46,10 @@ export class MyApp {
   }
 
   openPage(page) {
-    page.query.page = 1;
-    this._gamesProvider.setQuery(page.query);
+    if (page.query) {
+      page.query.page = 1;
+      this._gamesProvider.setQuery(page.query);
+    }
     this.nav.setRoot(page.component);
   }
 

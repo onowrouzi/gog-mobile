@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, LoadingController, Loading } from 'ionic-angular';
+import { NavController, NavParams, ViewController, LoadingController, Loading } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 import { GameResult } from '../../models/GameResult';
 import { DomSanitizer } from '@angular/platform-browser';

@@ -13,12 +13,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { ComponentsModule } from '../components/components.module';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { GameQueryProvider } from '../providers/game-query/game-query';
+import { CustomFilterPage } from '../pages/custom-filter/custom-filter';
 
 @NgModule({
   declarations: [
     MyApp,
     GamesListPage,
-    GameDetailPage
+    GameDetailPage,
+    CustomFilterPage
   ],
   imports: [
     BrowserModule,
@@ -31,7 +33,8 @@ import { GameQueryProvider } from '../providers/game-query/game-query';
   entryComponents: [
     MyApp,
     GamesListPage,
-    GameDetailPage
+    GameDetailPage,
+    CustomFilterPage
   ],
   providers: [
     InAppBrowser,

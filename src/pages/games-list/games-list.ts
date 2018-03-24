@@ -22,7 +22,7 @@ export class GamesListPage implements OnInit {
 
   constructor(private _gamesProvider: GameQueryProvider, private _zone: NgZone, private _modalCtrl: ModalController) {
     this.query = this._gamesProvider.getQuery();
-    this.totalPages = 1;
+    this.totalPages = 2;
     this.title = 'Best Sellers';
   }
 
@@ -38,23 +38,17 @@ export class GamesListPage implements OnInit {
     });
   }
 
-  onTitleChange() {
-    this._gamesProvider.titleEmitter.subscribe((res: string) => {
-      console.log(res);
-      this.title = res;
-    });
-  }
-
   async getGames(evt?) {
     this.query = this._gamesProvider.getQuery();
-    if (this.query.page <= this.totalPages) {
+    if (this.query.page < this.totalPages) {
       const res = (await this._gamesProvider.getGames()) as GameListResult;
       this.games = res && res.products ? (this.games || []).concat(res.products) : this.games;
-      this._gamesProvider.setPage(this.query.page++);
+      this._gamesProvider.setPage(++this.query.page);
       this.totalPages = res.totalPages;
-      if (evt) {
-        evt.complete();
-      }
+    }
+
+    if (evt) {
+      evt.complete();
     }
   }
 
@@ -64,8 +58,8 @@ export class GamesListPage implements OnInit {
   }
 
   searchGames() {
+    this.totalPages = 2;
     this._gamesProvider.setPage(1);
-    this.totalPages = 1;
     this.games = [];
     this.getGames();
   }

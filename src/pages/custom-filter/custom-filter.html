@@ -1,0 +1,28 @@
+<title-bar [title]="'Game Search Filters'" [link]="'https://www.gog.com/games'"></title-bar>
+
+<ion-content padding class="filter-wrapper">
+
+  <div class="row">
+    <ion-buttons>
+      <button ion-button clear (click)="apply()">Apply</button>
+    </ion-buttons>
+  </div>
+
+  <h5 class="text-left">Price Range</h5>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Price Range</ion-label>
+      <ion-select *ngIf="query" [(ngModel)]="query.price">
+        <ion-option *ngFor="let range of priceRanges" [value]="range.value" [selected]="query.price == range.value">{{ range.text }}</ion-option>
+        <!-- <ion-option value="'free'" [selected]="query.price == 'free'">Free</ion-option>
+        <ion-option value="'discounted'" [selected]="query.price == 'discounted'">Discounted</ion-option>
+        <ion-option value="'u5'" [selected]="query.price == 'u5'">Under $5</ion-option>
+        <ion-option value="'u10'" [selected]="query.price == 'u10'">Under $10</ion-option>
+        <ion-option value="'u15'" [selected]="query.price == 'u15'">Under $15</ion-option>
+        <ion-option value="'u25'" [selected]="query.price == 'u25'">Under $25</ion-option>
+        <ion-option value="'a25'" [selected]="query.price == 'a25'">Over $25</ion-option> -->
+      </ion-select>
+    </ion-item>
+  </ion-list>
+</ion-content>

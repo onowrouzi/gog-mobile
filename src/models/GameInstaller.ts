@@ -1,3 +1,5 @@
+import { GameFile } from "./GameFile";
+
 export class GameInstaller {
   id: string;
   name: string;
@@ -6,11 +8,5 @@ export class GameInstaller {
   language_full: string;
   version: string;
   total_size: number;
-  files: [
-      {
-        id: string;
-        size: number;
-        downlink: string;
-      }
-  ]
+  files: GameFile[];
 }

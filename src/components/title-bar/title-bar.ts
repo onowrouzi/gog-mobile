@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { GameQueryProvider } from '../../providers/game-query/game-query';
+import { TitleBarSettings } from '../../models/TitleBarSettings';
 
 @Component({
   selector: 'title-bar',
@@ -11,7 +12,9 @@ export class TitleBarComponent {
   @Input() title: string;
   @Input() link?: string;
 
-  constructor(private _iab: InAppBrowser, private _gamesProvider : GameQueryProvider) {}
+  constructor(private _iab: InAppBrowser, private _gamesProvider : GameQueryProvider) {
+    this.setOnTitleChange();
+  }
 
   onLogoClick() {
     if (this.link) {
@@ -20,10 +23,10 @@ export class TitleBarComponent {
     }
   }
 
-  onTitleChange() {
-    this._gamesProvider.titleEmitter.subscribe((res: string) => {
-      this.title = res;
-      console.log(res);
+  setOnTitleChange() {
+    this._gamesProvider.titleBarSettingsEmitter.subscribe((res: TitleBarSettings) => {
+      this.title = res.title;
+      this.link = res.link;
     });
   }
 }

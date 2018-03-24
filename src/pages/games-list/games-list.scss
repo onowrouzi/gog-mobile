@@ -3,11 +3,19 @@
   padding: 8px 0 !important;
 }
 
-.discount {
+.game-list-title {
+  line-height: 20px;
+}
+
+.in-dev, .discount {
   background: #666;
   color: white;
   padding-left: 5px;
   padding-right: 5px;
+}
+
+.in-dev {
+  font-size: .8rem;
 }
 
 .scroll-to-top-btn {
