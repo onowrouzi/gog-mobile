@@ -7,7 +7,10 @@
     <ion-avatar item-start>
       <img [src]="review.author.avatarPath">
     </ion-avatar>
-    <h2>{{ review.author.name }}</h2>
+    <h2>
+      {{ review.author.name }}
+      <ion-icon *ngFor="let i of review.stars" [name]="i == 1 ? 'star' : 'star-half'" class="star-rating"></ion-icon>
+    </h2>
     <div class="row">
       <div class="col-12">
         <p [innerHTML]="fullReview ? review.description : review.teaser" class="review-description"></p>

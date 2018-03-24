@@ -11,6 +11,7 @@ export class GameReview {
     helpfulVotes: number;
     totalVotes: number;
     rating: number;
+    stars: number[];
     added: number;
     edited: number;
 }

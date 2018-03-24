@@ -34,6 +34,14 @@ export class GameReviewListComponent implements OnInit {
         this.reviews = (this.reviews || []).concat(res.reviews);
         this.page++;
         this.totalPages = res.totalPages;
+        this.reviews.forEach((r) => {
+          const stars = r.rating / 10;
+          const totalWhole = Math.floor(stars);
+          r.stars = Array(totalWhole).fill(1);
+          if (stars > totalWhole) {
+            r.stars.push(0.5);
+          }
+        });
         if (evt) {
           evt.complete();
         }
