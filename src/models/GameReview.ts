@@ -14,4 +14,5 @@ export class GameReview {
     stars: number[];
     added: number;
     edited: number;
+    expanded: boolean;
 }
