@@ -3,14 +3,18 @@
   No reviews found for this game.
 </p>
 <ion-list>
-  <ion-item *ngFor="let review of reviews">
+  <ion-item *ngFor="let review of reviews" class="review">
     <ion-avatar item-start>
       <img [src]="review.author.avatarPath">
     </ion-avatar>
-    <h2>
-      {{ review.author.name }}
+    <h2 class="review-title">{{ review.title }}</h2>
+    <div class="review-stats">
+      <h3>{{ review.author.name  + ' on ' + (review.added * 1000 | date)}}</h3>
+      <h3>{{ review.helpfulVotes + ' of ' + review.totalVotes + ' found this helpful' }}</h3>
+    </div>
+    <h3>
       <ion-icon *ngFor="let i of review.stars" [name]="i == 1 ? 'star' : 'star-half'" class="star-rating"></ion-icon>
-    </h2>
+    </h3>
     <div class="row">
       <div class="col-12">
         <p [innerHTML]="fullReview ? review.description : review.teaser" class="review-description"></p>

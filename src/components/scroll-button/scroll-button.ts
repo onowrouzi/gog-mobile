@@ -14,7 +14,6 @@ export class ScrollButtonComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.content.ionScroll.subscribe((evt : Content) => {
-      console.log(evt);
       this._zone.run(() => {
         this.showScrollToTop = evt.scrollTop > 100;
       });

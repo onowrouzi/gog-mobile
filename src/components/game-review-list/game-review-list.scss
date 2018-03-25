@@ -1,3 +1,15 @@
+.review-title {
+  font-size: 1.4rem !important;
+  font-weight: 500 !important;
+}
+
+.review-stats {
+  >h3 {
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+}
+
 .review-description {
   white-space: normal;
 }

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { GameReview } from '../../models/GameReview';
-import { HttpClient } from '@angular/common/http';
 import { GameReviewsResult } from '../../models/GameReviewsResult';
+import { GameQueryProvider } from '../../providers/game-query/game-query';
 
 @Component({
   selector: 'game-review-list',
@@ -15,7 +15,7 @@ export class GameReviewListComponent implements OnInit {
   totalPages: number;
   fullReview: boolean;
 
-  constructor(private _http: HttpClient) {
+  constructor(private _gamesProvider: GameQueryProvider) {
     this.page = 1;
     this.totalPages = 1;
   }
@@ -24,30 +24,24 @@ export class GameReviewListComponent implements OnInit {
     this.getReviews();
   }
 
-  getReviews(evt?) {
+  async getReviews(evt?) {
     if (this.page <= this.totalPages) {
-      this._http.get('/gog/embed/reviews/product/' + this.gameId + '.json', {
-        params: {
-          page: this.page.toString()
-        }
-      }).subscribe((res: GameReviewsResult) => {
-        this.reviews = (this.reviews || []).concat(res.reviews);
-        this.page++;
-        this.totalPages = res.totalPages;
-        this.reviews.forEach((r) => {
-          const stars = r.rating / 10;
-          const totalWhole = Math.floor(stars);
-          r.stars = Array(totalWhole).fill(1);
-          if (stars > totalWhole) {
-            r.stars.push(0.5);
-          }
-        });
-        if (evt) {
-          evt.complete();
+      const res = (await this._gamesProvider.getGameReview(this.gameId, this.page)) as GameReviewsResult;
+      this.reviews = (this.reviews || []).concat(res.reviews);
+      this.page++;
+      this.totalPages = res.totalPages;
+      this.reviews.forEach((r) => {
+        const stars = r.rating / 10;
+        const totalWhole = Math.floor(stars);
+        r.stars = Array(totalWhole).fill(1);
+        if (stars > totalWhole) {
+          r.stars.push(0.5);
         }
       });
-    } else if (evt) {
-      evt.complete();
+
+      if (evt) {
+        evt.complete();
+      }
     }
   }
 }

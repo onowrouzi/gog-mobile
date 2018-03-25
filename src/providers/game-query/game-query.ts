@@ -39,4 +39,20 @@ export class GameQueryProvider {
       params: omitBy(this.query, isNil)
     }).toPromise();
   }
+
+  getGameDetail(gameId) {
+    return this._http.get('/gog/api/products/' + gameId, {
+      params: {
+        expand: 'downloads,expanded_dlcs,description,screenshots,videos,related_products,changelog'
+      }
+    }).toPromise();
+  }
+
+  getGameReview(gameId, page) {
+    return this._http.get('/gog/embed/reviews/product/' + gameId + '.json', {
+      params: {
+        page: page.toString()
+      }
+    }).toPromise();
+  }
 }

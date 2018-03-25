@@ -2,6 +2,7 @@
 
 <ion-content padding>
   <ion-searchbar class="games-search" [(ngModel)]="query.search" [showCancelButton]="true" (ionInput)="searchGames()"></ion-searchbar>
+  <h2 *ngIf="(!games || games.length <= 0) && !searching" text-center>Hmm... Good Ol' Nothing Here.</h2>
   <ion-list>
     <ion-item *ngFor="let game of games" class="game-item">
       <ion-thumbnail item-start>
