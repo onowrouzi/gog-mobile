@@ -7,7 +7,7 @@
     <ion-avatar item-start>
       <img [src]="review.author.avatarPath">
     </ion-avatar>
-    <h2 class="review-title">{{ review.title }}</h2>
+    <h2 class="review-title" [innerHTML]="review.title"></h2>
     <div class="review-stats">
       <h3>{{ review.author.name  + ' on ' + (review.added * 1000 | date)}}</h3>
       <h3>{{ review.helpfulVotes + ' of ' + review.totalVotes + ' found this helpful' }}</h3>
